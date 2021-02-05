@@ -12,10 +12,12 @@ async function fetchFunction() {
     .then((response) => {
       const doc = new JSDOM(response);
       const data = doc.window.document.querySelectorAll("td");
-      data.forEach((e, index) => {
-        if (e.textContent.replace(" ", "") == word)
-          result = data[index + 1].textContent;
-      });
+      for (const [key, value] of Object.entries(data)) {
+        if (value.textContent.replace(" ", "") == word) {
+          result = data[parseInt(key) + 1].textContent;
+          break;
+        }
+      }
     });
   return result;
 }
